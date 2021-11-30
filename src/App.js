@@ -1,25 +1,21 @@
 import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import {useEffect, useState} from "react";
+import axios from "axios";
+import WeatherDashBoard from "./componenets/WeatherDashBoard";
+
+const App = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    axios.get('http://api.openweathermap.org/data/2.5/forecast?q=Toronto&appid=688c270b270d0d5019eb5c314ea85d43').then(result=>setData(result.data.list));
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+     <>
+       <WeatherDashBoard/>
+     </>
   );
-}
+};
 
 export default App;
